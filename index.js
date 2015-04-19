@@ -106,7 +106,7 @@ Vagrant.prototype.status = function(done){
  * @returns {*}
  */
 Vagrant.prototype.isRunning = function(done){
-  this.status(function(errors,machines){
+  var vagrant = this.status(function(errors,machines){
     var running = false;
     Object.keys(machines).forEach(function(name){
       if(machines[name].status == 'running' ){
