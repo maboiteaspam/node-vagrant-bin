@@ -1,0 +1,24 @@
+{
+  "name": "node-vagrant-bin",
+  "version": "1.0.0",
+  "description": "programmatic api to control vagrant bin",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "nodej",
+    "vagrant",
+    "bin",
+    "programmatic"
+  ],
+  "author": "maboiteaspam",
+  "license": "WTF",
+  "dependencies": {
+    "npmlog": "^1.2.0",
+    "underscore.string": "^3.0.3"
+  },
+  "devDependencies": {
+    "should": "^6.0.1"
+  }
+}
