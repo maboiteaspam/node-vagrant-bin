@@ -14,6 +14,9 @@ A library to ease programmatic use of vagrant binary with nodejs.
 ### API
 
 * [`Vagrant`](#Vagrant)
+    * [`Vagrant.version`](#version)
+    * [`Vagrant.isInstalled`](#isInstalled)
+    * [`Vagrant.addBox`](#addBox)
     * [`Vagrant.up`](#up)
     * [`Vagrant.halt`](#halt)
     * [`Vagrant.status`](#status)
@@ -43,6 +46,116 @@ __Examples__
      };
     
     var vagrant = new Vagrant(opts);
+```
+
+
+<a name="Vagrant.version" />
+### Vagrant.version(done)
+
+Returns vagrant version number.
+
+__Arguments__
+
+* `done` - A callback called on completion.
+    * `stderr` - String of stderr.
+    * `version` - String of version number.
+
+__Returns__
+
+* `child_process` - A child_process.spawn object.
+
+__Examples__
+
+```js
+    var Vagrant = require('node-vagrant-cli');
+    
+    var opts = 
+     {
+      'provider':'virtualbox',
+      'binary':'vagrant'
+     };
+    
+    var vagrant = new Vagrant(opts);
+    
+    vagrant.version(function(err, version){
+        console.log(err);
+        console.log(version);
+    });
+```
+
+
+<a name="Vagrant.isInstalled" />
+### Vagrant.isInstalled(done)
+
+Find out if vagrant is installed 
+and available at options.binary location.
+
+__Arguments__
+
+* `done` - A callback called on completion.
+    * `stderr` - String of stderr.
+    * `isInstalled` - Boolean.
+
+__Returns__
+
+* `child_process` - A child_process.spawn object.
+
+__Examples__
+
+```js
+    var Vagrant = require('node-vagrant-cli');
+    
+    var opts = 
+     {
+      'provider':'virtualbox',
+      'binary':'vagrant'
+     };
+    
+    var vagrant = new Vagrant(opts);
+    
+    vagrant.isInstalled(function(err, isInstalled){
+        console.log(err);
+        console.log(isInstalled);
+    });
+```
+
+
+<a name="Vagrant.addBox" />
+### Vagrant.addBox(name, url, done)
+
+Add box to vagrant.
+
+__Arguments__
+
+* `name` - String of the new vagrant box.
+* `url` - String of the location of the vagrant box image.
+* `done` - A callback called on completion.
+    * `stderr` - String of stderr.
+    * `stdout` - String of stdout.
+    * `success` - Boolean.
+
+__Returns__
+
+* `child_process` - A child_process.spawn object.
+
+__Examples__
+
+```js
+    var Vagrant = require('node-vagrant-cli');
+    
+    var opts = 
+     {
+      'provider':'virtualbox',
+      'binary':'vagrant'
+     };
+    
+    var vagrant = new Vagrant(opts);
+    
+    vagrant.addBox(function(stderr, stdout, success){
+        console.log(stderr);
+        console.log(stdout);
+        console.log(success);
+    });
 ```
 
 

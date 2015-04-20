@@ -118,5 +118,52 @@ Vagrant.prototype.isRunning = function(done){
   return vagrant;
 };
 
+/**
+ *
+ * @param done
+ */
+Vagrant.prototype.isInstalled = function(done){
+  return this.version(function(stderr, version){
+    done(stderr, !stderr&&version)
+  });
+};
+
+/**
+ *
+ * @param done
+ */
+Vagrant.prototype.version = function(done){
+  var binary = this.options.binary || 'vagrant';
+  var vagrant = spawnVagrant(binary, ['-v']);
+  var version = '';
+  vagrant.stdout.on('data', function (data) {
+    version = (data+'').match(/Vagrant\s+([0-9.]+)/)[1];
+    if(version) version = version[1];
+  });
+  vagrant.on('done',function(code, stdout, stderr){
+    if(done) done(stderr, version);
+  });
+  return vagrant;
+};
+
+/**
+ *
+ * @param done
+ */
+Vagrant.prototype.addBox = function(name, url, done){
+  var binary = this.options.binary || 'vagrant';
+  var vagrant = spawnVagrant(binary, ['box','add',name,url,'--provider',this.options.provider]);
+  var success = false;
+  vagrant.stdout.on('data', function (data) {
+    if( !success && data.match(/box: Successfully added box '[^']+' \(v0\) for '[^']+'!/) ){
+      success = true;
+    }
+  });
+  vagrant.on('done',function(code, stdout, stderr){
+    if(done) done(stderr, stdout, success);
+  });
+  return vagrant;
+};
+
 
 module.exports = Vagrant;
