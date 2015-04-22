@@ -155,6 +155,7 @@ Vagrant.prototype.addBox = function(name, url, done){
   var vagrant = spawnVagrant(binary, ['box','add',name,url,'--provider',this.options.provider]);
   var success = false;
   vagrant.stdout.on('data', function (data) {
+    data = ''+data;
     if( !success && data.match(/box: Successfully added box '[^']+' \(v0\) for '[^']+'!/) ){
       success = true;
     }
