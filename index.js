@@ -78,7 +78,7 @@ Vagrant.prototype.halt = function(done){
  */
 Vagrant.prototype.status = function(done){
   var machines = {};
-  var reg = /([a-z0-9-_]+)\s+(running|poweroff|not created)\s+[(](virtualbox|libvirt)[)]/i;
+  var reg = /([a-z0-9-_]+)\s+(running|poweroff|aborted|not created)\s+[(](virtualbox|libvirt)[)]/i;
   var binary = this.options.binary || 'vagrant';
   var vagrant = spawnVagrant(binary, ['status']);
   vagrant.stdout.on('data', function (data) {
