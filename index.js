@@ -40,9 +40,14 @@ var spawnVagrant = function(binary, args){
  * @param done
  */
 Vagrant.prototype.up = function(machine, done){
+  var provision = this.options.provision || false;
   var provider = this.options.provider || 'virtualbox';
   var binary = this.options.binary || 'vagrant';
-  var vagrant = spawnVagrant(binary, ['up', machine, '--provider='+provider]);
+  var vagrant = spawnVagrant(binary, [
+    'up', machine,
+    provider?'--provider='+provider:'',
+    !provision?'--no-provision':'--provision='+provision
+  ]);
   var booted = null;
   vagrant.stdout.on('data',function(data){
     data += '';
